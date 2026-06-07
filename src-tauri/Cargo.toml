@@ -1,0 +1,36 @@
+[package]
+name = "clipboard-manager"
+version = "0.1.0"
+description = "macOS clipboard manager"
+authors = []
+edition = "2021"
+
+[lib]
+name = "clipboard_manager_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "protocol-asset"] }
+tauri-plugin-opener = "2"
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-autostart = "2"
+tauri-plugin-positioner = { version = "2", features = ["tray-icon"] }
+tauri-plugin-clipboard-manager = "2"
+tauri-plugin-clipboard = "2"
+clipboard-rs = "0.2"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+blake3 = "1"
+enigo = "0.2"
+chrono = { version = "0.4", features = ["serde"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.5"
+objc2-app-kit = { version = "0.2", features = ["NSWorkspace", "NSRunningApplication"] }
+objc2-foundation = { version = "0.2", features = ["NSString"] }
+core-graphics = "0.25"
